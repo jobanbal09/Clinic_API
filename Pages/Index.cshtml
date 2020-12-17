@@ -227,7 +227,7 @@
                 $('#update_Customer_Name').val(response.customer_Name);
                 $('#update_Address').val(response.address);
                 $('#update_Customer_Age').val(response.customer_Age);
-                $('#update_Email').val(response.Email);
+                $('#update_Email').val(response.email);
             });
         }
         // function to update data of the customer
@@ -235,7 +235,7 @@
             var _customer_Name = $('#update_Customer_Name').val();
             var _address = $('#update_Address').val();
             var _customer_Age = $('#update_Customer_Age').val();
-            var _email = $('#update_email').val();
+            var _email = $('#update_Email').val();
             var CustomerUpdate = {
                 customer_Id: parseInt($('#_id').val()),
                 customer_Name: _customer_Name,

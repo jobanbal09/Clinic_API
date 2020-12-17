@@ -1,0 +1,293 @@
+﻿@page
+@model Clinic_API.Pages.IndexModel
+@{
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>CLINIC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .hero-image {
+            background-color: #cccccc;
+            height: 100px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .hero-text {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+    </style>
+</head>
+<body style="background-color:cadetblue;">
+    <div>
+        <!-- Navigation bar code -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <a class="navbar-brand" href="#">Customers</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <button class="btn btn-outline-dark" data-toggle="modal" data-target="#addCustomers">Add New Customer</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+
+        <!-- following division is creating main area of the web page where all Customer data will display-->
+        <div class="container">
+            <div class="row" id="allCustomers">
+            </div>
+        </div>
+    </div>
+
+    <!--to add background text-->
+
+    <div class="hero-image">
+    <div class="hero-text">
+        <h1 style="font-size:50px">HAPPY CUSTOMERS</h1>
+        <h3>Dedicated to serve our customers.</h3>
+        </div>
+    </div>
+
+    <!-- below mentioned code will create the template to add a new customer -->
+    <div class="modal" tabindex="-1" role="dialog" id="addCustomers">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Customers</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="customer_Name">Customer Name</label>
+                            <input type="text" class="form-control" id="customer_Name" aria-describedby="customer_NameHelp" placeholder="Customer Name">
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" aria-describedby="addressHelp" placeholder="Address">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="customer_Age">Customer Age</label>
+                            <input type="text" class="form-control" id="customer_Age" aria-describedby="customer_AgeHelp" placeholder="Customer Age">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
+                        </div>
+
+                        <div class="form-group" id="result">
+
+
+                        </div>
+                        <button type="button" class="btn btn-success" onclick="addCustomers()">Add Customers</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- below mentioned code will create the template to update Customer data -->
+
+    <div class="modal" tabindex="-1" role="dialog" id="UpdateCustomers">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+
+                            <input type="hidden" class="form-control" id="_id" aria-describedby="IdHelp">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="update_Customer_Name">Customer Name</label>
+                            <input type="text" class="form-control" id="update_Customer_Name" aria-describedby="update_Customer_NameHelp" placeholder="Customer Name">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="update_Address">Address</label>
+                            <input type="text" class="form-control" id="update_Address" aria-describedby="update_AddressHelp" placeholder="Address">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="update_Customer_Age">Customer Age</label>
+                            <input type="text" class="form-control" id="update_Customer_Age" aria-describedby="update_Customer_AgeHelp" placeholder="Customer Age">
+                        </div>
+                        <div class="form-group">
+                            <label for="update_Email">Email</label>
+                            <input type="text" class="form-control" id="update_Email" aria-describedby="update_EmailHelp" placeholder="Email">
+                        </div>
+
+                        <div class="form-group" id="update_result">
+
+
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="UpdateCustomer()">Update Customers</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <! -- java script files that will help to link the front end and back end -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        var uri = 'api/Customers';
+        //Java script main function so JS start from here
+        $(document).ready(function () {
+            $.getJSON(uri)
+                .done(function (data) {
+                    $("#CustomersTemplate").tmpl(data).appendTo("#allCustomers");
+                });
+        });
+        // function to get all Customer data and show on web page
+        function getAllCustomers() {
+            $.getJSON(uri)
+                .done(function (data) {
+                    $("#allCustomers").text("");
+                    $("#CustomersTemplate").tmpl(data).appendTo("#allCustomers");
+                });
+        }
+        // function to add data for new customer
+        function addCustomers() {
+            var _customer_Name = $('#customer_Name').val();
+            var _address = $('#address').val();
+            var _customer_Age = $('#customer_Age').val();
+            var _email = $('#email').val();
+            var Customer = {
+                customer_Name: _customer_Name,
+                address: _address,
+                customer_Age: _customer_Age,
+                email: _email
+            };
+            $.ajax({
+                type: "POST",
+                url: uri,
+                data: JSON.stringify(Customer),
+                contentType: "application/json; charset=utf-8"
+            }).done(function (response) {
+                $("#result").html("Success");
+                getAllCustomers();
+            }).fail(function (jqXHR, textStatus) {
+                $("#result").html("An error occured when Adding the Customer record.");
+            });
+        }
+        // funtion to fill the data into update template
+        function getCustomerForUpdate(id) {
+            $.ajax({
+                type: "GET",
+                url: uri + "/" + id,
+                contentType: "application/json"
+            }).done(function (response) {
+                $('#_id').val(response.customer_Id);
+                $('#update_Customer_Name').val(response.customer_Name);
+                $('#update_Address').val(response.address);
+                $('#update_Customer_Age').val(response.customer_Age);
+                $('#update_Email').val(response.email);
+            });
+        }
+        // function to update data of the customer
+        function UpdateCustomer() {
+            var _customer_Name = $('#update_Customer_Name').val();
+            var _address = $('#update_Address').val();
+            var _customer_Age = $('#update_Customer_Age').val();
+            var _email = $('#update_email').val();
+            var CustomerUpdate = {
+                customer_Id: parseInt($('#_id').val()),
+                customer_Name: _customer_Name,
+                address: _address,
+                customer_Age: _customer_Age,
+                email: _email
+            };
+            $.ajax({
+                type: "PUT",
+                url: uri + "/" + $('#_id').val(),
+                data: JSON.stringify(UpdateCustomer),
+                contentType: "application/json; charset=utf-8"
+            }).done(function (response) {
+                $("#update_result").html("Success");
+                getAllCustomers();
+            }).fail(function (jqXHR, textStatus) {
+                $("#update_result").html("An error occured when Adding the customer record.");
+            });
+        }
+        //funtion to delete a particular customer based on id
+        function remove(id) {
+            var yes = confirm("Are you sure you want to delete this Customer?");
+            if (yes) {
+                $.ajax({
+                    type: "DELETE",
+                    url: uri + "/" + id,
+                }).done(function (response) {
+                    getAllCustomers();
+                });
+            }
+        }
+    </script>
+
+    <!-- below mentioned code will create the template on the web page to display all customer -->
+    <script id="CustomersTemplate" type="text/x-jquery-tmpl">
+
+        <div class="card border-col-lg-3 bg-secondary mb-3" style="width: 100%">
+
+            <div class="card-body">
+                <h5 class="card-title">Customer Name: ${customer_Name}</h5>
+                <p class="card-text">Address :  ${address}</p>
+                <p class="card-text">Customer Age : ${customer_Age}</p>
+                <p class="card-text">Email : ${email}</p>
+            </div>
+            <span>
+                <button class="btn btn-outline-primary" onclick="getCustomerForUpdate('${customer_Id}')" data-toggle="modal" data-target="#UpdateCustomers">Update</button>
+                <a href="#" class="btn btn-outline-danger" onclick="remove('${customer_Id}')">Delete</a>
+            </span>
+        </div>
+
+    </script>
+
+
+</body>
+</html>h
